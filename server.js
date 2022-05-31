@@ -5,6 +5,7 @@ const port = process.env.PORT || 3000;
 
 // Require para usar Prisma
 const { PrismaClient } = require('@prisma/client');
+const { json } = require('express');
 const prisma = new PrismaClient();
 
 app.get('/', (req, res) => {
@@ -57,6 +58,52 @@ app.delete('/explorers/:id', async (req, res) => {
 	const id = parseInt(req.params.id);
 	await prisma.explorer.delete({where: {id: id}});
 	return res.json({message: "Eliminado correctamente"});
+});
+
+// GET all missions
+app.get('/missions', async (req, res) => {
+  const allMissions = await prisma.mission.findMany({});
+  return res.json(allMissions);
+});
+
+// GET mission by ID
+app.get('/missions/:id', async (req, res) => {
+  const id = req.params.id;
+  const mission = await prisma.mission.findUnique({ where: {id: parseInt(id)}});
+  res.json(mission);
+});
+
+app.post('/missions', async(req, res) => {
+  const mission = {
+    name: req.body.name,
+    lang: req.body.lang,
+    missionCommander: req.body.missionCommander,
+    enrollments: req.body.enrollments
+  };
+  const message = 'Mission created';
+  await prisma.mission.create({data: mission});
+  return res.json({message});
+});
+
+app.put('/missions/:id', async(req, res) => {
+  const id = parseInt(req.params.id);
+  await prisma.mission.update({
+    where: {
+      id: id
+    },
+    data: {
+      name: req.body.name,
+      missionCommander: req.body.missionCommander
+    }
+  });
+
+  return res.json({ message: 'Mission updated' });
+});
+
+app.delete('/missions/:id', async(req, res) => {
+  const id = parseInt(req.params.id);
+  await prisma.mission.delete({ where: {id: id}});
+  return res.json({ message: 'Mission deleted' });
 });
 
 app.listen(port, () => {
