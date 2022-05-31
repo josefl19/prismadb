@@ -1,0 +1,33 @@
+{
+  "name": "prismadb",
+  "version": "1.0.0",
+  "description": "\"conexion de postgres a un proyecto express\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josefl19/prismadb.git"
+  },
+  "keywords": [
+    "prisma",
+    "postgres",
+    "nodejs",
+    "express",
+    "js"
+  ],
+  "author": "josefl19",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josefl19/prismadb/issues"
+  },
+  "homepage": "https://github.com/josefl19/prismadb#readme",
+  "devDependencies": {
+    "express": "^4.18.1",
+    "prisma": "^3.14.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.14.0"
+  }
+}
