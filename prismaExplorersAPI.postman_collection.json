@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "e573e1c5-5adb-471f-8fbc-289a4b6a118c",
+		"name": "prismaExplorersAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21031595"
+	},
+	"item": [
+		{
+			"name": "Get Explorers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/explorers",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"explorers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Explorers by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/explorers/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"explorers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Explorer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Woopa Postman\",\r\n    \"username\": \"ajolonautaPost\",\r\n    \"mission\": \"Node\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/explorers/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"explorers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Explorer Mission",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mission\": \"Java\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/explorers/6",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"explorers",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/explorers/6",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"explorers",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
