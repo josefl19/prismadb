@@ -1,17 +1,29 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
 // Require para usar Prisma
 const { PrismaClient } = require('@prisma/client');
-const { json } = require('express');
 const prisma = new PrismaClient();
+const { json } = require("express");
+
+// Cors
+const cors = require("cors");
+
+const corsOptions = {
+  origin: "http://localhost:8081"
+};
+
+app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
   res.json({message: 'alive'});
 });
 
+/**
+ * EXPLORERS
+ */
 // GET all explorers
 app.get('/explorers', async (req, res) => {
   const allExplorers =  await prisma.explorer.findMany({});
@@ -60,6 +72,9 @@ app.delete('/explorers/:id', async (req, res) => {
 	return res.json({message: "Eliminado correctamente"});
 });
 
+/**
+ * MISSIONS
+ */
 // GET all missions
 app.get('/missions', async (req, res) => {
   const allMissions = await prisma.mission.findMany({});
@@ -104,6 +119,52 @@ app.delete('/missions/:id', async(req, res) => {
   const id = parseInt(req.params.id);
   await prisma.mission.delete({ where: {id: id}});
   return res.json({ message: 'Mission deleted' });
+});
+
+/**
+ * MISSION COMANDERS
+ */
+app.get('/commander', async(req, res) => {
+  const allMissions = await prisma.missionCommander.findMany({});
+  return res.json(allMissions);
+});
+
+app.get('/commander/:id', async(req, res) => {
+  const idCommander = parseInt(req.params.id);
+  const commander = await prisma.missionCommander.findUnique({ where: {id: idCommander}});
+  return res.json(commander);
+})
+
+app.post('/commander', async(req, res) => {
+  const commander = {
+    name: req.body.name,
+    username: req.body.username,
+    mainStack: req.body.mainStack
+  };
+  await prisma.missionCommander.create({data: commander});
+  return res.json({ message: 'Mission commander created'});
+});
+
+app.put('/commander/:id', async(req, res) => {
+  const idCommander = parseInt(req.params.id);
+  await prisma.missionCommander.update({
+    where: {
+      id: idCommander
+    },
+    data: {
+      name: req.body.name,
+      username: req.body.username,
+      mainStack: req.body.mainStack
+    }
+  });
+
+  return res.json({ message: 'Mission commander updated'});
+});
+
+app.delete('/commander/:id', async(req, res) => {
+  const idCommander = parseInt(req.params.id);
+  await prisma.missionCommander.delete({ where: {id: idCommander }});
+  res.json({ message: 'Mission commander deleted' });
 });
 
 app.listen(port, () => {
