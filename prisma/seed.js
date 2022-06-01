@@ -73,10 +73,33 @@ const prisma = new PrismaClient();
         missionCommander: 'Fernanda Ochoa',
         enrollments: 8500
       }
-  });
+    });
+
+    const commander = await prisma.missionCommander.upsert({
+      where: { name: 'Carlo Gilmar'},
+      update: {},
+      create: {
+        name: 'Carlo Gilmar',
+        username: 'carlogilmar',
+        mainStack: 'Node JS',
+        currentEnrollment: true
+      }
+    });
+
+    const commander1 = await prisma.missionCommander.upsert({
+      where: { name: 'Rodrigo Martinez'},
+      update: {},
+      create: {
+        name: 'Rodrigo Martinez',
+        username: 'romarpla',
+        mainStack: 'Ciberseguridad',
+        currentEnrollment: true
+      }
+    });
 
     console.log('Create 5 explorers');
     console.log('Create 2 missions');
+    console.log('Create 2 Mission Commander')
   } catch(e) {
     console.error(e);
     process.exit(1);
